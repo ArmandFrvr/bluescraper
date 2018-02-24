@@ -1,0 +1,93 @@
+// Grab the articles as a json
+$.getJSON("/articles", function(data) {
+  // For each one
+  for (var i = 0; i < data.length; i++) {
+    // Display the apropos information on the page
+    $("#articles").append("<p class='article-title' data-id='" + data[i]._id + "'>"
+      + "<a href='" + data[i].link + "' target='_blank'>" + data[i].title + "</a></p>"
+      + "<p class='article-info'>" + data[i].date + " by " + data[i].author
+      + "<button class='save-btn' data-id='" + data[i]._id
+      + "'><i class='fa fa-bookmark-o' aria-hidden='true'></i> Save Article</button>"
+      + "<button class='note-btn' data-id='" + data[i]._id
+      + "'><i class='fa fa-sticky-note-o' aria-hidden='true'></i> Add Note</button></p>");
+  }
+});
+
+
+// Whenever someone clicks a p tag
+$(document).on("click", "p", function() {
+  // Empty the notes from the note section
+  $("#notes").empty();
+  // Save the id from the p tag
+  var thisId = $(this).attr("data-id");
+
+  // Now make an ajax call for the Article
+  $.ajax({
+    method: "GET",
+    url: "/articles/" + thisId
+  })
+    // With that done, add the note information to the page
+    .then(function(data) {
+      console.log(data);
+      // The title of the article
+      $("#notes").append("<h2>" + data.title + "</h2>");
+      // An input to enter a new title
+      // $("#notes").append("<input id='titleinput' name='title' >");
+      // A textarea to add a new note body
+      $("#notes").append("<textarea id='bodyinput' name='body'></textarea>");
+      // A button to submit a new note, with the id of the article saved to it
+      $("#notes").append("<button data-id='" + data._id + "' id='savenote'>Save Note</button>");
+
+      // If there's a note in the article
+      if (data.note) {
+        // Place the title of the note in the title input
+        // $("#titleinput").val(data.note.title);
+        // Place the body of the note in the body textarea
+        $("#bodyinput").val(data.note.body);
+      }
+    });
+});
+
+// When you click the savenote button
+$(document).on("click", "#savenote", function() {
+  // Grab the id associated with the article from the submit button
+  var thisId = $(this).attr("data-id");
+
+  // Run a POST request to change the note, using what's entered in the inputs
+  $.ajax({
+    method: "POST",
+    url: "/articles/" + thisId,
+    data: {
+      // Value taken from title input
+      // title: $("#titleinput").val(),
+      // Value taken from note textarea
+      body: $("#bodyinput").val()
+    }
+  })
+    // With that done
+    .then(function(data) {
+      // Log the response
+      console.log(data);
+      // Empty the notes section
+      $("#notes").empty();
+    });
+
+  // Also, remove the values entered in the input and textarea for note entry
+  // $("#titleinput").val("");
+  $("#bodyinput").val("");
+});
+
+
+// Clicking on a save button calls the api to save that item
+$(document).on("click", ".save-btn", function() {
+  $.post("/save/" + $(this).attr("data-id"));
+})
+
+
+$(document).ready(function() {
+  $("#scrape-btn").on("click", function() {
+    $.get("/scrape", function(data) {
+      alert(data);
+    });
+  });
+});

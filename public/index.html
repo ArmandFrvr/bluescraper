@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="UTF-8">
+    <title>BlueScraper</title>
+    <style>
+      body { background-color: #e6e6ff }
+      #wrapper {
+        width: 96%;
+        margin-left: auto;
+        margin-right: auto;
+        padding-top: 20px;
+      }
+      #articles {
+        display: inline-block;
+        overflow: auto;
+/*        width: 60%;
+        height: 700px;*/
+        margin: 0 auto;
+        text-align: left;
+      }
+      #notes {
+       /* float: right;
+        width: 30%;*/
+      }
+      textarea, input {
+        display: block;
+        width: 100%;
+        background-color: #FCF5C7;
+      }
+      input {
+        height: 36px;
+        font-size: 24px;
+      }
+      textarea {
+        height: 200px;
+        font-size: 18px;
+      }
+
+      p.article-title {
+        margin-bottom: 5px;
+      }
+
+      p.article-info {
+        margin-top: 5px;
+        margin-left: 10px;
+        font-style: italic;
+      }
+
+      .save-btn, .note-btn {
+        float: right;
+        margin-right: 10px;
+        border-radius: 3px;
+        border: none;
+        padding: 2px 5px;
+      }
+
+      .note-btn {
+        background-color: #009900;
+      }
+      .note-btn:hover {
+        background-color: #00cc00;
+      }
+
+      .save-btn {
+        background-color: #0598CB;
+      }
+      .save-btn:hover {
+        background-color: #00ccff;
+      }
+
+      a {
+        font-weight: bold;
+      }
+
+      h1 {
+        color: #000099;
+        margin-top: 15px;
+        margin-bottom: 5px;
+        text-align: center;
+      }
+
+      h2 {
+        margin-top: 5px;
+        text-align: center;
+      }
+
+      #body-wrapper {
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      #scrape-btn {
+        padding: 5px 9px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+
+      #saved-btn {
+        padding: 5px 9px;
+        font-weight: bold;
+        position: absolute;
+        top: 10px;
+        left: 10px;
+      }
+
+    </style>
+  </head>
+  <body>
+    <div id="wrapper">
+      <header>
+        <button id="saved-btn"><i class='fa fa-save' aria-hidden='true'></i> Saved Articles</button>
+        <button id="scrape-btn"><i class='fa fa-download' aria-hidden='true'></i> Update Articles</button>
+      </header>
+
+      <div id="banner">
+        <h1>Blue Post Scraper</h1>
+        <h2><i>Because going to MMO-Champion is way too distracting.</i></h2>
+      </div>
+
+      <div id="body-wrapper">
+        <div id="articles"></div>
+        <div id="notes"></div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://use.fontawesome.com/17d34a2d31.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
